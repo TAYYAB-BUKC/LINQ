@@ -79,5 +79,18 @@ namespace LINQ.OutputFromQueries
 
 			Print(result);
 		}
+
+
+
+		// KEY TAKEAWAYS:
+		//
+		// METHOD          | RETURNS     | NO MATCH   | 2+ MATCHES | COMMENTS
+		// ----------------+-------------+------------+------------+-------------------------------------------------
+		// First           | First match | Throws     | OK         | Stops after first match
+		// Last            | Last match  | Throws     | OK         | May iterate entire source
+		// Single          | First match | Throws     | Throws     | May iterate entire source, or until second match
+		// FirsOrDefault   | First match | default(T) | OK         | Stops after first match
+		// LastOrDefault   | Last match  | default(T) | OK         | May iterate entire source
+		// SingleOrDefault | First match | default(T) | Throws     | May iterate entire source, or until second match
 	}
 }
