@@ -7,7 +7,9 @@ namespace LINQ.OutputFromQueries
 		public override void Run()
 		{
 			//SimpleQueryWithForeach();
-			SimpleQueryWithToList();
+			//SimpleQueryWithToList();
+			//SimpleQueryWithFirst();
+			ExtendedQueryWithForeach();
 		}
 
 		/// <summary>
@@ -47,6 +49,51 @@ namespace LINQ.OutputFromQueries
 			var result = query.ToList();
 
 			foreach (var movie in result)
+			{
+				Console.WriteLine(movie);
+			}
+		}
+
+		/// <summary>
+		/// A single query, triggered by retrieving a single item.
+		/// </summary>
+		private void SimpleQueryWithFirst()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			// This defines the LINQ query
+			var query =
+				from movie in sourceMovies
+				where IsSpiderManMovie(movie)
+				select movie;
+
+			// Retrieving a single result also triggers execution
+			var result = query.First();
+
+			Console.WriteLine(result);
+		}
+
+		/// <summary>
+		/// A query that extends another query, triggered by iterating.
+		/// </summary>
+		private void ExtendedQueryWithForeach()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			// This defines a LINQ query
+			var query =
+				from movie in sourceMovies
+				where IsSpiderManMovie(movie)
+				select movie;
+
+			// Extending the query does not trigger execution
+			var refinedQuery =
+				from movie in query
+				where movie.ReleaseDate.Year < 2020
+				select movie;
+
+			// Triggering the iterator will start execution
+			foreach (var movie in refinedQuery)
 			{
 				Console.WriteLine(movie);
 			}
