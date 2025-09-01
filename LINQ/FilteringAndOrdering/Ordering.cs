@@ -4,7 +4,8 @@ namespace LINQ.FilteringAndOrdering
 	{
 		public override void Run()
 		{
-			 SingleOrderBy_Q();
+			//SingleOrderBy_Q();
+			SingleOrderByDescending_Q();
 		}
 
 		/// <summary>
@@ -13,6 +14,12 @@ namespace LINQ.FilteringAndOrdering
 		private void SingleOrderBy_Q()
 		{
 			var sourceMovies = Repository.GetAllMovies();
+
+			var result = from movie in sourceMovies
+						 orderby movie.Name
+						 select movie;
+
+			PrintAll(result);
 		}
 
 		/// <summary>
@@ -21,6 +28,12 @@ namespace LINQ.FilteringAndOrdering
 		private void SingleOrderByDescending_Q()
 		{
 			var sourceMovies = Repository.GetAllMovies();
+
+			var result = from movie in sourceMovies
+						 orderby movie.Name descending
+						 select movie;
+			
+			PrintAll(result);
 		}
 
 		/// <summary>

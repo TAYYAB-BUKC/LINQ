@@ -14,6 +14,8 @@ var linqResult2 = movies
 				  .Where(movie => movie.Name.Contains("Spider"))
 				  .Select(movie => movie);
 
-new WhereConditions().Run();
+//new WhereConditions().Run();
+
+new Ordering().Run();
 
 Console.ReadKey();
