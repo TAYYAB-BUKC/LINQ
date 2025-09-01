@@ -9,7 +9,9 @@ namespace LINQ.OutputFromQueries
 			//SelectAnonymousType_Q();
 			//SelectAnonymousType_F();
 			//ProjectToValueTuple_Q();
-			ProjectToValueTuple_F();
+			//ProjectToValueTuple_F();
+			//ProjectToOtherType_Q();
+			ProjectToOtherType_F();
 		}
 
         /// <summary>
@@ -96,5 +98,38 @@ namespace LINQ.OutputFromQueries
 
 			PrintAll(query);
 		}
+
+		/// <summary>
+		/// Projecting to another type, query syntax
+		/// </summary>
+		void ProjectToOtherType_Q()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var query =	from movie in sourceMovies
+						where movie.Name.StartsWith("Iron Man")
+						select new MovieTitle(movie.Name, movie.ReleaseDate.Year);
+
+			PrintAll(query);
+		}
+
+		/// <summary>
+		/// Projecting to another type, fluent syntax
+		/// </summary>
+		void ProjectToOtherType_F()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var query = sourceMovies
+						.Where(movie => movie.Name.StartsWith("Iron Man"))
+						.Select(movie => new MovieTitle(movie.Name, movie.ReleaseDate.Year));
+
+			PrintAll(query);
+		}
 	}
+}
+
+internal record MovieTitle(string Title, int Year)
+{
+	public override string ToString() => $"{Title} ({Year})";
 }
