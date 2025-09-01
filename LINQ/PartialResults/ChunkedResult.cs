@@ -4,7 +4,8 @@ namespace LINQ.PartialResults
 	{
 		public override void Run()
 		{
-			SimpleChunks();
+			//SimpleChunks();
+			ChunksWithNumbers();
 		}
 
 		/// <summary>
@@ -24,6 +25,28 @@ namespace LINQ.PartialResults
 			{
 				Console.WriteLine("CHUNK:");
 				foreach (var movie in chunk)
+				{
+					Console.WriteLine(movie);
+				}
+				Console.WriteLine(string.Empty);
+			}
+		}
+
+		void ChunksWithNumbers()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var query =
+				from movie in sourceMovies
+				where movie.Producers.Count > 1
+				select movie;
+
+			var chunks = query.Chunk(5).Select((chunk, index) => new { Movies = chunk, Number = ++index });
+
+			foreach (var chunk in chunks)
+			{
+				Console.WriteLine($"CHUNK {chunk.Number}:");
+				foreach (var movie in chunk.Movies)
 				{
 					Console.WriteLine(movie);
 				}
