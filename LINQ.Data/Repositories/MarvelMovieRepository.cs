@@ -57,9 +57,20 @@ public class MarvelMovieRepository
         return movies;
     }
 
-    #region Data
+	public IQueryable<Movie> GetAllMoviesAsQueryable()
+	{
+		List<Movie> movies = [];
+		movies.AddRange(_phase1Movies);
+		movies.AddRange(_phase2Movies);
+		movies.AddRange(_phase3Movies);
+		movies.AddRange(_phase4Movies);
+		movies.AddRange(_phase5Movies);
+		return movies.AsQueryable();
+	}
 
-    private readonly List<Movie> _phase1Movies =
+	#region Data
+
+	private readonly List<Movie> _phase1Movies =
     [
         new Movie
         {
