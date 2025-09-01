@@ -2,6 +2,7 @@
 using LINQ.FilteringAndOrdering;
 using LINQ.Introduction;
 using LINQ.OutputFromQueries;
+using LINQ.PartialResults;
 
 // Working with LINQ Query Syntax
 var movies = new NonLinqCodeSamples().GetMovies();
@@ -25,6 +26,8 @@ var linqResult2 = movies
 
 //new GetSingleItem().Run();
 
-new ProjectingResults().Run();
+//new ProjectingResults().Run();
+
+new ChunkedResult().Run();
 
 Console.ReadKey();
