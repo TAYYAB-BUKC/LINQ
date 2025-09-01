@@ -1,4 +1,4 @@
-﻿namespace LINQ.Introduction.Models
+﻿namespace LINQ.Data.Models
 {
 	public class Movie
 	{

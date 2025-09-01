@@ -1,5 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using LINQ;
+using LINQ.Introduction;
 
 Console.WriteLine("Hello, World!");
 

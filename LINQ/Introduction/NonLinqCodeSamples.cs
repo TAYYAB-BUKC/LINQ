@@ -1,4 +1,4 @@
-﻿using LINQ.Introduction.Models;
+﻿using LINQ.Data.Models;
 using Microsoft.Data.SqlClient;
 using System.Xml;
 
