@@ -1,8 +1,8 @@
-﻿using LINQ.Models;
+﻿using LINQ.Introduction.Models;
 using Microsoft.Data.SqlClient;
 using System.Xml;
 
-namespace LINQ
+namespace LINQ.Introduction
 {
 	public class NonLinqCodeSamples
 	{
@@ -76,7 +76,7 @@ namespace LINQ
 		/// Should return actual movies
 		/// </summary>
 		/// <returns>An empty list of movies.</returns>
-		List<Movie> GetMovies()
+		public List<Movie> GetMovies()
 		{
 			//
 			return new List<Movie>();
