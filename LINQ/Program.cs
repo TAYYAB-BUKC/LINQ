@@ -23,6 +23,8 @@ var linqResult2 = movies
 
 //new GetAllResults().Run();
 
-new GetSingleItem().Run();
+//new GetSingleItem().Run();
+
+new ProjectingResults().Run();
 
 Console.ReadKey();
