@@ -9,7 +9,9 @@ namespace LINQ.FilteringAndOrdering
 			//SingleCondition_Q();
 			//SingleCondition_F();
 			//SingleFunctionCondition_Q();
-			SingleFunctionCondition_F();
+			//SingleFunctionCondition_F();
+			//MultipleConditions_Q();
+			MultipleConditions_F();
 		}
 
 		/// <summary>
@@ -83,14 +85,27 @@ namespace LINQ.FilteringAndOrdering
 		private void MultipleConditions_Q()
 		{
 			var sourceMovies = Repository.GetAllMovies();
+
+			var result = from movie in sourceMovies
+						 where IsSpiderManMovie(movie)
+						 where movie.ReleaseDate.Year < 2020
+						 select movie;
+
+			PrintAll(result);
 		}
 
 		/// <summary>
 		/// Multiple chained conditions, fluent syntax
 		/// </summary>
-		private void MultiplesConditions_F()
+		private void MultipleConditions_F()
 		{
 			var sourceMovies = Repository.GetAllMovies();
+
+			var result = sourceMovies
+						 .Where(IsIronManMovie)
+						 .Where(movie => movie.ReleaseDate.Year <= 2010);
+
+			PrintAll(result);
 		}
 	}
 }
