@@ -4,10 +4,12 @@ namespace LINQ.OutputFromQueries
     {
         public override void Run()
         {
-            //SelectSingleProperty_Q();
-            //SelectSingleProperty_F();
-            //SelectAnonymousType_Q();
-			SelectAnonymousType_F();
+			//SelectSingleProperty_Q();
+			//SelectSingleProperty_F();
+			//SelectAnonymousType_Q();
+			//SelectAnonymousType_F();
+			//ProjectToValueTuple_Q();
+			ProjectToValueTuple_F();
 		}
 
         /// <summary>
@@ -63,6 +65,34 @@ namespace LINQ.OutputFromQueries
 			var query = sourceMovies
 				        .Where(movie => movie.Name.StartsWith("Iron Man"))
 				        .Select(movie => new { movie.Name, movie.ReleaseDate.Year });
+
+			PrintAll(query);
+		}
+
+		/// <summary>
+		/// Projecting to a value tuple, query syntax
+		/// </summary>
+		void ProjectToValueTuple_Q()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var query = from movie in sourceMovies
+						where movie.Name.StartsWith("Iron Man")
+						select (Title: movie.Name, Year: movie.ReleaseDate.Year);
+
+			PrintAll(query);
+		}
+
+		/// <summary>
+		/// Projecting to a value tuple, fluent syntax
+		/// </summary>
+		void ProjectToValueTuple_F()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var query = sourceMovies
+						.Where(movie => movie.Name.StartsWith("Iron Man"))
+						.Select(movie => (Title: movie.Name, Year: movie.ReleaseDate.Year));
 
 			PrintAll(query);
 		}
