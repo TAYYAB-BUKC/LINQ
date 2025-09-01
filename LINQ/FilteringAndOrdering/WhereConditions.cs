@@ -4,7 +4,8 @@ namespace LINQ.FilteringAndOrdering
 	{
 		public override void Run()
 		{
-			SingleCondition_Q();
+			//SingleCondition_Q();
+			SingleCondition_F();
 		}
 
 		/// <summary>
@@ -13,6 +14,14 @@ namespace LINQ.FilteringAndOrdering
 		private void SingleCondition_Q()
 		{
 			var sourceMovies = Repository.GetAllMovies();
+
+			//PrintAll(sourceMovies);
+
+			var result = from movie in sourceMovies
+						 where movie.Name.Contains("Spider")
+						 select movie;
+
+			PrintAll(result);
 		}
 
 		/// <summary>
@@ -21,6 +30,10 @@ namespace LINQ.FilteringAndOrdering
 		private void SingleCondition_F()
 		{
 			var sourceMovies = Repository.GetAllMovies();
+
+			var result = sourceMovies.Where(movie => movie.Name.Contains("Spider"));
+
+			PrintAll(result);
 		}
 
 		/// <summary>

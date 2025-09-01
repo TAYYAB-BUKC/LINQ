@@ -1,7 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using LINQ.FilteringAndOrdering;
 using LINQ.Introduction;
-
-Console.WriteLine("Hello, World!");
 
 // Working with LINQ Query Syntax
 var movies = new NonLinqCodeSamples().GetMovies();
@@ -14,3 +13,7 @@ var linqResult = from movie in movies
 var linqResult2 = movies
 				  .Where(movie => movie.Name.Contains("Spider"))
 				  .Select(movie => movie);
+
+new WhereConditions().Run();
+
+Console.ReadKey();
