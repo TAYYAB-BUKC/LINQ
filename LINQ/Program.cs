@@ -21,6 +21,8 @@ var linqResult2 = movies
 
 //new DeferredExecution().Run();
 
-new GetAllResults().Run();
+//new GetAllResults().Run();
+
+new GetSingleItem().Run();
 
 Console.ReadKey();
