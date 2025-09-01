@@ -66,7 +66,8 @@ namespace LINQ.FilteringAndOrdering
 		{
 			var sourceMovies = Repository.GetAllMovies();
 
-			var result = sourceMovies.Where(movie => IsIronManMovie(movie));
+			//var result = sourceMovies.Where(movie => IsIronManMovie(movie));
+			var result = sourceMovies.Where(IsIronManMovie);
 
 			PrintAll(result);
 		}
