@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using LINQ.FilteringAndOrdering;
 using LINQ.Introduction;
+using LINQ.OutputFromQueries;
 
 // Working with LINQ Query Syntax
 var movies = new NonLinqCodeSamples().GetMovies();
@@ -16,6 +17,8 @@ var linqResult2 = movies
 
 //new WhereConditions().Run();
 
-new Ordering().Run();
+//new Ordering().Run();
+
+new DeferredExecution().Run();
 
 Console.ReadKey();
