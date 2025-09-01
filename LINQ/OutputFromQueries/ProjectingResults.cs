@@ -5,8 +5,10 @@ namespace LINQ.OutputFromQueries
         public override void Run()
         {
             //SelectSingleProperty_Q();
-            SelectSingleProperty_F();
-        }
+            //SelectSingleProperty_F();
+            //SelectAnonymousType_Q();
+			SelectAnonymousType_F();
+		}
 
         /// <summary>
         /// Getting a single property from the model class, query syntax
@@ -36,5 +38,33 @@ namespace LINQ.OutputFromQueries
 
             PrintAll(query);
         }
-    }
+
+		/// <summary>
+		/// Getting results as an anonymous type, query syntax
+		/// </summary>
+		void SelectAnonymousType_Q()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var query = from movie in sourceMovies
+				        where movie.Name.StartsWith("Iron Man")
+				        select new { movie.Name, movie.ReleaseDate.Year };
+
+            PrintAll(query);
+		}
+
+		/// <summary>
+		/// Getting results as an anonymous type, fluent syntax
+		/// </summary>
+		void SelectAnonymousType_F()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var query = sourceMovies
+				        .Where(movie => movie.Name.StartsWith("Iron Man"))
+				        .Select(movie => new { movie.Name, movie.ReleaseDate.Year });
+
+			PrintAll(query);
+		}
+	}
 }
