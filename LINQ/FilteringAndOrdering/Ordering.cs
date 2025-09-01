@@ -7,7 +7,9 @@ namespace LINQ.FilteringAndOrdering
 			//SingleOrderBy_Q();
 			//SingleOrderByDescending_Q();
 			//SingleOrderBy_F();
-			SingleOrderByDescending_F();
+			//SingleOrderByDescending_F();
+			//MultipleOrderBy_Q();
+			//MultipleOrderBy_F();
 		}
 
 		/// <summary>
@@ -68,6 +70,12 @@ namespace LINQ.FilteringAndOrdering
 		private void MultipleOrderBy_Q()
 		{
 			var sourceMovies = Repository.GetAllMovies();
+
+			var result = from movie in sourceMovies
+						 orderby movie.ReleaseDate.Year descending, movie.Name ascending
+						 select movie;
+
+			PrintAll(result);
 		}
 
 		/// <summary>
@@ -76,6 +84,11 @@ namespace LINQ.FilteringAndOrdering
 		private void MultipleOrderBy_F()
 		{
 			var sourceMovies = Repository.GetAllMovies();
+
+			var result = sourceMovies.OrderByDescending(movie => movie.ReleaseDate.Year)
+						 .ThenBy(movie => movie.Name);
+
+			PrintAll(result);
 		}
 	}
 }
