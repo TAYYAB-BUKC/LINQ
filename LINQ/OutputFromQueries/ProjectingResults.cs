@@ -11,7 +11,9 @@ namespace LINQ.OutputFromQueries
 			//ProjectToValueTuple_Q();
 			//ProjectToValueTuple_F();
 			//ProjectToOtherType_Q();
-			ProjectToOtherType_F();
+			//ProjectToOtherType_F();
+			//MaterializeProjectedResult_Q();
+			MaterializeProjectedResult_F();
 		}
 
         /// <summary>
@@ -125,6 +127,38 @@ namespace LINQ.OutputFromQueries
 						.Select(movie => new MovieTitle(movie.Name, movie.ReleaseDate.Year));
 
 			PrintAll(query);
+		}
+
+		/// <summary>
+		/// Materialization or single-item selects are compatible
+		/// wih projections, query syntax
+		/// </summary>
+		void MaterializeProjectedResult_Q()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var result = (from movie in sourceMovies
+						 where movie.Name.StartsWith("Iron Man")
+						 select new MovieTitle(movie.Name, movie.ReleaseDate.Year))
+						 .ToList();
+
+			PrintAll(result);
+		}
+
+		/// <summary>
+		/// Materialization or single-item selects are compatible
+		/// wih projections, fluent syntax
+		/// </summary>
+		void MaterializeProjectedResult_F()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var result = sourceMovies
+						.Where(movie => movie.Name.StartsWith("Iron Man"))
+						.Select(movie => new MovieTitle(movie.Name, movie.ReleaseDate.Year))
+						.ToList();
+
+			PrintAll(result);
 		}
 	}
 }
