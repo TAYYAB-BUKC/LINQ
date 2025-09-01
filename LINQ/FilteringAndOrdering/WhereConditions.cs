@@ -1,3 +1,5 @@
+using LINQ.Data.Models;
+
 namespace LINQ.FilteringAndOrdering
 {
 	public class WhereConditions : QueryRunner
@@ -5,7 +7,9 @@ namespace LINQ.FilteringAndOrdering
 		public override void Run()
 		{
 			//SingleCondition_Q();
-			SingleCondition_F();
+			//SingleCondition_F();
+			//SingleFunctionCondition_Q();
+			SingleFunctionCondition_F();
 		}
 
 		/// <summary>
@@ -42,6 +46,17 @@ namespace LINQ.FilteringAndOrdering
 		private void SingleFunctionCondition_Q()
 		{
 			var sourceMovies = Repository.GetAllMovies();
+
+			var result = from movie in sourceMovies
+						 where IsSpiderManMovie(movie)
+						 select movie;
+
+			PrintAll(result);
+		}
+
+		private static bool IsSpiderManMovie(Movie movie)
+		{
+			return movie.Name.Contains("Spider");
 		}
 
 		/// <summary>
@@ -50,6 +65,15 @@ namespace LINQ.FilteringAndOrdering
 		private void SingleFunctionCondition_F()
 		{
 			var sourceMovies = Repository.GetAllMovies();
+
+			var result = sourceMovies.Where(movie => IsIronManMovie(movie));
+
+			PrintAll(result);
+		}
+
+		private static bool IsIronManMovie(Movie movie)
+		{
+			return movie.Name.Contains("Iron");
 		}
 
 		/// <summary>
