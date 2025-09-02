@@ -28,6 +28,8 @@ var linqResult2 = movies
 
 //new ProjectingResults().Run();
 
-new ChunkedResult().Run();
+//new ChunkedResult().Run();
+
+new SkipAndTake().Run();
 
 Console.ReadKey();
