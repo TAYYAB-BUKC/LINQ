@@ -5,7 +5,9 @@ namespace LINQ.CombiningResults
 		public override void Run()
 		{
 			//SelectManyFromProperty_Q();
-			SelectManyFromProperty_F();
+			//SelectManyFromProperty_F();
+			//SelectManyWithProjection_Q();
+			SelectManyWithProjection_F();
 		}
 
 		/// <summary>
@@ -38,6 +40,36 @@ namespace LINQ.CombiningResults
 									 .Distinct();
 
 			PrintAll(allUniqueDirectors);
+		}
+
+		/// <summary>
+		/// With SelectMany, it is possible to project both the source and the child item
+		/// into a new model for the resulting sequence, query syntax
+		/// </summary>
+		void SelectManyWithProjection_Q()
+		{
+			var allMovies = Repository.GetAllMovies();
+
+			var allDirectors = from movie in allMovies
+							   from director in movie.Directors
+							   select (Movie: movie.Name, Director: director.ToString());
+
+			PrintAll(allDirectors);
+		}
+
+		/// <summary>
+		/// With SelectMany, it is possible to project both the source and the child item
+		/// into a new model for the resulting sequence, fluent syntax
+		/// </summary>
+		void SelectManyWithProjection_F()
+		{
+			var allMovies = Repository.GetAllMovies();
+
+			var allDirectors = allMovies
+				.SelectMany(movie => movie.Directors,
+							(movie, director) => (Movie: movie.Name, Director: director.ToString()));
+
+			PrintAll(allDirectors);
 		}
 	}
 }
