@@ -5,7 +5,8 @@ namespace LINQ.PartialResults
 		public override void Run()
 		{
 			//TakeFirstItems_Q();
-			TakeLastItems_Q();
+			//TakeLastItems_Q();
+			TakeMatchingItems_Q();
 		}
 
 		/// <summary>
@@ -36,6 +37,22 @@ namespace LINQ.PartialResults
 						select movie;
 
 			var result = query.TakeLast(5);
+
+			PrintAll(result);
+		}
+
+		/// <summary>
+		/// Take items from a source while a condition is true
+		/// </summary>
+		void TakeMatchingItems_Q()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var query = from movie in sourceMovies
+						where movie.Producers.Count > 1
+						select movie;
+
+			var result = query.TakeWhile(movie => movie.Phase <= 3);
 
 			PrintAll(result);
 		}
