@@ -37,6 +37,8 @@ var linqResult2 = movies
 
 //new RemoveDuplicates().Run();
 
-new CheckingForSingleItem().Run();
+//new CheckingForSingleItem().Run();
+
+new FindMatches().Run();
 
 Console.ReadKey();
