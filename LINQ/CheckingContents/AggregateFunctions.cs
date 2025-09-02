@@ -7,7 +7,9 @@ namespace LINQ.CheckingContents
 			//MinimumValue();
 			//MinimumItem();
 			//MaximumValue();
-			MaximumItem();
+			//MaximumItem();
+			//AverageValue();
+			SumValue();
 		}
 
 		/// <summary>
@@ -62,6 +64,32 @@ namespace LINQ.CheckingContents
 							.MaxBy(movie => movie.ReleaseDate);
 
 			Console.WriteLine(lastMovie);
+		}
+
+		/// <summary>
+		/// Get the average value for a certain expression
+		/// </summary>
+		void AverageValue()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var averageProducers = sourceMovies
+								   .Average(movie => movie.Producers.Count);
+
+			Console.WriteLine(averageProducers);
+		}
+
+		/// <summary>
+		/// Get the added value for a certain expression
+		/// </summary>
+		void SumValue()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var totalProducers = sourceMovies
+								 .Sum(movie => movie.Producers.Count);
+
+			Console.WriteLine(totalProducers);
 		}
 	}
 }
