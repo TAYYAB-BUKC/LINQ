@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using LINQ.CheckingContents;
+using LINQ.CombiningResults;
 using LINQ.FilteringAndOrdering;
 using LINQ.Introduction;
 using LINQ.OutputFromQueries;
@@ -43,6 +44,8 @@ var linqResult2 = movies
 
 //new AggregateFunctions().Run();
 
-new CompareSequences().Run();
+//new CompareSequences().Run();
+
+new AppendSequences().Run();
 
 Console.ReadKey();
