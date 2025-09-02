@@ -46,6 +46,8 @@ var linqResult2 = movies
 
 //new CompareSequences().Run();
 
-new AppendSequences().Run();
+//new AppendSequences().Run();
+
+new SetOperations().Run();
 
 Console.ReadKey();
