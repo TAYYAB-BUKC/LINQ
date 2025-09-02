@@ -39,11 +39,9 @@ namespace LINQ.PartialResults
 			var sourceMovies = Repository.GetAllMovies();
 
 			var groupedQuery = sourceMovies
-				.Where(movie => movie.Producers.Count > 1)
-				.GroupBy(
-					movie => movie.Phase,
-					movie => movie)
-				.Where(phase => phase.Key > 2);
+							   .Where(movie => movie.Producers.Count > 1)
+							   .GroupBy(movie => movie.Phase, movie => movie)
+							   .Where(phase => phase.Key > 2);
 
 
 			foreach (var phase in groupedQuery)
