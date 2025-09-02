@@ -4,7 +4,8 @@ namespace LINQ.CheckingContents
 	{
 		public override void Run()
 		{
-			RemoveDuplicateItems();
+			//RemoveDuplicateItems();
+			RemoveDuplicateItemsByKey();
 		}
 
 		/// <summary>
@@ -17,6 +18,19 @@ namespace LINQ.CheckingContents
 			var result = sourceItems.Distinct();
 
 			PrintAll(result);
+		}
+
+		/// <summary>
+		/// Remove duplicates from a source, based on a certain key.
+		/// </summary>
+		private void RemoveDuplicateItemsByKey()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var query = sourceMovies
+						.DistinctBy(movie => movie.Phase); // use property that is unique
+
+			PrintAll(query);
 		}
 	}
 }
