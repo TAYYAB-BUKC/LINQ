@@ -6,7 +6,9 @@ namespace LINQ.PartialResults
 		{
 			//TakeFirstItems_Q();
 			//TakeLastItems_Q();
-			TakeMatchingItems_Q();
+			//TakeMatchingItems_Q();
+			//SkipFirstItems_Q();
+			SkipLastItems_Q();
 		}
 
 		/// <summary>
@@ -53,6 +55,38 @@ namespace LINQ.PartialResults
 						select movie;
 
 			var result = query.TakeWhile(movie => movie.Phase <= 3);
+
+			PrintAll(result);
+		}
+
+		/// <summary>
+		/// Skip the first X items from a source
+		/// </summary>
+		void SkipFirstItems_Q()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var query = from movie in sourceMovies
+						where movie.Producers.Count > 1
+						select movie;
+
+			var result = query.Skip(5);
+
+			PrintAll(result);
+		}
+
+		/// <summary>
+		/// Skip the last X items from a source
+		/// </summary>
+		void SkipLastItems_Q()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var query = from movie in sourceMovies
+						where movie.Producers.Count > 1
+						select movie;
+
+			var result = query.SkipLast(5);
 
 			PrintAll(result);
 		}
