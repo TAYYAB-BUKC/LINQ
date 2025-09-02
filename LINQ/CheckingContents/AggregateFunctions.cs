@@ -11,7 +11,8 @@ namespace LINQ.CheckingContents
 			//AverageValue();
 			//SumValue();
 			//CountItems();
-			AggregateFunctionsWithGroupBy_Q();
+			//AggregateFunctionsWithGroupBy_Q();
+			AggregateFunctionsWithGroupBy_F();
 		}
 
 		/// <summary>
@@ -129,6 +130,37 @@ namespace LINQ.CheckingContents
 			foreach (var phase in groupedQuery)
 			{
 				Console.WriteLine($"\nPHASE {phase.Movies.Key}\n\nFirst Movie: {phase.FirstMovie.Name} released in ({phase.FirstMovieReleaseDate}) \nLast Movie: {phase.LastMovie.Name} released in ({phase.LastMovieReleaseDate}))\n\n");
+				foreach (var movie in phase.Movies)
+				{
+					Console.WriteLine(movie);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Combining the use of aggregate functions with a group by, fluent syntax
+		/// </summary>
+		void AggregateFunctionsWithGroupBy_F()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var groupedQuery = sourceMovies
+							   .Where(movie => movie.Producers.Count > 1)
+							   .GroupBy(
+									movie => movie.Phase,
+									movie => movie)
+							   .Where(phase => phase.Key > 2)
+							   .Select(group => new
+							   {
+								   Movies = group,
+								   FirstMovie = group.MinBy(film => film.ReleaseDate),
+								   LastMovie = group.MaxBy(film => film.ReleaseDate)
+							   });
+
+
+			foreach (var phase in groupedQuery)
+			{
+				Console.WriteLine($"\nPHASE {phase.Movies.Key}\n\nFirst Movie: {phase.FirstMovie.Name} released in ({phase.FirstMovie.ReleaseDate}) \nLast Movie: {phase.LastMovie.Name} released in ({phase.LastMovie.ReleaseDate}))\n\n");
 				foreach (var movie in phase.Movies)
 				{
 					Console.WriteLine(movie);
