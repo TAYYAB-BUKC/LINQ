@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using LINQ.CheckingContents;
 using LINQ.FilteringAndOrdering;
 using LINQ.Introduction;
 using LINQ.OutputFromQueries;
@@ -32,6 +33,8 @@ var linqResult2 = movies
 
 //new SkipAndTake().Run();
 
-new GroupedResults().Run();
+//new GroupedResults().Run();
+
+new RemoveDuplicates().Run();
 
 Console.ReadKey();
