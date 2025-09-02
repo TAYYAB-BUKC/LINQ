@@ -9,7 +9,8 @@ namespace LINQ.CheckingContents
 			//MaximumValue();
 			//MaximumItem();
 			//AverageValue();
-			SumValue();
+			//SumValue();
+			CountItems();
 		}
 
 		/// <summary>
@@ -90,6 +91,18 @@ namespace LINQ.CheckingContents
 								 .Sum(movie => movie.Producers.Count);
 
 			Console.WriteLine(totalProducers);
+		}
+
+		/// <summary>
+		/// Count the number of items
+		/// </summary>
+		void CountItems()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var numberOfMovies = sourceMovies.Count();
+
+			Console.WriteLine(numberOfMovies);
 		}
 	}
 }
