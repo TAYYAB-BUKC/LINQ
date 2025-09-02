@@ -1,3 +1,4 @@
+using LINQ.CheckingContents;
 using LINQ.Data.Models;
 
 namespace LINQ.CombiningResults
@@ -9,7 +10,9 @@ namespace LINQ.CombiningResults
 			//UnionSequences();
 			//UnionSequencesWithOverlap();
 			//IntersectSequences();
-			ExceptSequences();
+			//ExceptSequences();
+			//ExceptSequencesWithComparer();
+			ExceptSequencesByKey();
 		}
 
 		/// <summary>
@@ -61,6 +64,42 @@ namespace LINQ.CombiningResults
 
 			var movies = infinitySaga.Except(phase3Movies);
 			//var movies = phase3Movies.Except(infinitySaga);
+
+			PrintAll(movies);
+		}
+
+		/// <summary>
+		/// The above operations have overloads for custom comparison.
+		/// </summary>
+		void ExceptSequencesWithComparer()
+		{
+			var infinitySaga = Repository.GetInfinitySagaMovies();
+			Movie[] phase1Movies = [
+				new Movie { Name = "Iron Man", MovieId = Guid.NewGuid(), ReleaseDate = DateOnly.MinValue },
+				new Movie { Name = "The incredible Hulk", MovieId = Guid.NewGuid(), ReleaseDate = DateOnly.MinValue },
+				new Movie { Name = "Iron Man 2", MovieId = Guid.NewGuid(), ReleaseDate = DateOnly.MinValue },
+				new Movie { Name = "Thor", MovieId = Guid.NewGuid(), ReleaseDate = DateOnly.MinValue },
+				new Movie { Name = "Captain America: The first Avenger", MovieId = Guid.NewGuid(), ReleaseDate = DateOnly.MinValue },
+				new Movie { Name = "The Avengers", MovieId = Guid.NewGuid(), ReleaseDate = DateOnly.MinValue },
+			];
+
+			var movies = infinitySaga.Except(phase1Movies, new MovieComparer());
+
+			PrintAll(movies);
+		}
+
+		/// <summary>
+		/// The above operations have overloads to select items by key
+		/// </summary>
+		void ExceptSequencesByKey()
+		{
+			var infinitySaga = Repository.GetInfinitySagaMovies();
+			string[] phase1MovieNames = [
+				"Iron Man", "The incredible Hulk", "Iron Man 2",
+				"Thor", "Captain America: The first Avenger", "The Avengers"
+			];
+
+			var movies = infinitySaga.ExceptBy(phase1MovieNames, movie => movie.Name);
 
 			PrintAll(movies);
 		}
