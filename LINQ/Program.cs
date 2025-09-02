@@ -41,6 +41,8 @@ var linqResult2 = movies
 
 //new FindMatches().Run();
 
-new AggregateFunctions().Run();
+//new AggregateFunctions().Run();
+
+new CompareSequences().Run();
 
 Console.ReadKey();
