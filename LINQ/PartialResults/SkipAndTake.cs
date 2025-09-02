@@ -9,7 +9,8 @@ namespace LINQ.PartialResults
 			//TakeMatchingItems_Q();
 			//SkipFirstItems_Q();
 			//SkipLastItems_Q();
-			SkipMatchingItems_Q();
+			//SkipMatchingItems_Q();
+			GetChunkUsingSkipAndTake_Q();
 		}
 
 		/// <summary>
@@ -104,6 +105,22 @@ namespace LINQ.PartialResults
 						select movie;
 
 			var result = query.SkipWhile(movie => movie.Phase <= 3);
+
+			PrintAll(result);
+		}
+
+		/// <summary>
+		/// Combining Skip & Take to get a chunk of items from a source
+		/// </summary>
+		void GetChunkUsingSkipAndTake_Q()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var query = from movie in sourceMovies
+						where movie.Producers.Count > 1
+						select movie;
+
+			var result = query.Skip(10).Take(5);
 
 			PrintAll(result);
 		}
