@@ -39,6 +39,8 @@ var linqResult2 = movies
 
 //new CheckingForSingleItem().Run();
 
-new FindMatches().Run();
+//new FindMatches().Run();
+
+new AggregateFunctions().Run();
 
 Console.ReadKey();
