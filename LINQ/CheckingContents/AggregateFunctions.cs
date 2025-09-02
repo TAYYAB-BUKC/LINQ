@@ -5,7 +5,9 @@ namespace LINQ.CheckingContents
 		public override void Run()
 		{
 			//MinimumValue();
-			MinimumItem();
+			//MinimumItem();
+			//MaximumValue();
+			MaximumItem();
 		}
 
 		/// <summary>
@@ -16,7 +18,7 @@ namespace LINQ.CheckingContents
 			var sourceMovies = Repository.GetAllMovies();
 
 			var firstReleaseDate = sourceMovies
-				.Min(movie => movie.ReleaseDate);
+								   .Min(movie => movie.ReleaseDate);
 
 			Console.WriteLine(firstReleaseDate);
 		}
@@ -29,9 +31,37 @@ namespace LINQ.CheckingContents
 			var sourceMovies = Repository.GetAllMovies();
 
 			var firstMovie = sourceMovies
-				.MinBy(movie => movie.ReleaseDate);
+							 .MinBy(movie => movie.ReleaseDate);
 
 			Console.WriteLine(firstMovie);
+		}
+
+		/// <summary>
+		/// Get the maximum value for a certain expression
+		/// </summary>
+		void MaximumValue()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var lastReleaseDate = sourceMovies
+								  .Where(movie => movie.ReleaseDate < DateOnly.FromDateTime(DateTime.Now))
+								  .Max(movie => movie.ReleaseDate);
+
+			Console.WriteLine(lastReleaseDate);
+		}
+
+		/// <summary>
+		/// Get the item with the maximum value for a certain expression
+		/// </summary>
+		void MaximumItem()
+		{
+			var sourceMovies = Repository.GetAllMovies();
+
+			var lastMovie = sourceMovies
+							.Where(movie => movie.ReleaseDate < DateOnly.FromDateTime(DateTime.Now))
+							.MaxBy(movie => movie.ReleaseDate);
+
+			Console.WriteLine(lastMovie);
 		}
 	}
 }
