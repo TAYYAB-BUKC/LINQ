@@ -30,6 +30,8 @@ var linqResult2 = movies
 
 //new ChunkedResult().Run();
 
-new SkipAndTake().Run();
+//new SkipAndTake().Run();
+
+new GroupedResults().Run();
 
 Console.ReadKey();
