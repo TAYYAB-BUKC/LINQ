@@ -35,6 +35,8 @@ var linqResult2 = movies
 
 //new GroupedResults().Run();
 
-new RemoveDuplicates().Run();
+//new RemoveDuplicates().Run();
+
+new CheckingForSingleItem().Run();
 
 Console.ReadKey();

@@ -68,6 +68,11 @@ public class MarvelMovieRepository
 		return movies.AsQueryable();
 	}
 
+	public Movie GetByName(string name)
+	{
+		return GetAllMovies().FirstOrDefault(movie => movie.Name == name)!;
+	}
+
 	#region Data
 
 	private readonly List<Movie> _phase1Movies =
