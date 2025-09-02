@@ -6,7 +6,8 @@ namespace LINQ.CheckingContents
     {
         public override void Run()
         {
-            CheckIfItemIsPresent();
+            //CheckIfItemIsPresent();
+            CheckIfItemIsPresentByComparer();
         }
 
         /// <summary>
@@ -21,6 +22,42 @@ namespace LINQ.CheckingContents
             var isMoviePresent = sourceMovies.Contains(blackWidow);
 
             Console.WriteLine(isMoviePresent);
+        }
+
+        /// <summary>
+        /// Check if an item exists in a source, using a custom Equality comparer
+        /// </summary>
+        void CheckIfItemIsPresentByComparer()
+        {
+            var blackWidow = new Movie
+            {
+                MovieId = Guid.NewGuid(),
+                Name = "blACK widOW",
+                ReleaseDate = DateOnly.MinValue
+            };
+
+            var sourceMovies = Repository.GetAllMovies();
+
+            var result = sourceMovies.Contains(blackWidow, new MovieComparer());
+
+            Console.WriteLine(result);
+        }
+    }
+
+    class MovieComparer : IEqualityComparer<Movie>
+    {
+        public bool Equals(Movie x, Movie y)
+        {
+            if (ReferenceEquals(x, y)) return true;
+            if (ReferenceEquals(x, null)) return false;
+            if (ReferenceEquals(y, null)) return false;
+            if (x.GetType() != y.GetType()) return false;
+            return x.Name.ToLower() == y.Name.ToLower();
+        }
+
+        public int GetHashCode(Movie obj)
+        {
+            return obj.Name.GetHashCode();
         }
     }
 }
