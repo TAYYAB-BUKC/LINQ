@@ -48,6 +48,8 @@ var linqResult2 = movies
 
 //new AppendSequences().Run();
 
-new SetOperations().Run();
+//new SetOperations().Run();
+
+new JoinCollectionsFromResults().Run();
 
 Console.ReadKey();
