@@ -7,7 +7,9 @@ namespace LINQ.CombiningResults
 		public override void Run()
 		{
 			//UnionSequences();
-			UnionSequencesWithOverlap();
+			//UnionSequencesWithOverlap();
+			//IntersectSequences();
+			ExceptSequences();
 		}
 
 		/// <summary>
@@ -32,6 +34,33 @@ namespace LINQ.CombiningResults
 			var phase3Movies = Repository.GetPhase3Movies();
 
 			var movies = infinitySaga.Union(phase3Movies);
+
+			PrintAll(movies);
+		}
+
+		/// <summary>
+		/// Take all elements that appear in both sources.
+		/// </summary>
+		void IntersectSequences()
+		{
+			var infinitySaga = Repository.GetInfinitySagaMovies();
+			var phase3Movies = Repository.GetPhase3Movies();
+
+			var movies = infinitySaga.Intersect(phase3Movies);
+
+			PrintAll(movies);
+		}
+
+		/// <summary>
+		/// Take all elements that appear in the first sequence, but not the second.
+		/// </summary>
+		void ExceptSequences()
+		{
+			var infinitySaga = Repository.GetInfinitySagaMovies();
+			var phase3Movies = Repository.GetPhase3Movies();
+
+			var movies = infinitySaga.Except(phase3Movies);
+			//var movies = phase3Movies.Except(infinitySaga);
 
 			PrintAll(movies);
 		}
