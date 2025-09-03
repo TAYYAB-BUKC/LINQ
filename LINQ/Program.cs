@@ -2,6 +2,7 @@
 using LINQ.CheckingContents;
 using LINQ.CombiningResults;
 using LINQ.FilteringAndOrdering;
+using LINQ.HowLINQWorks;
 using LINQ.Introduction;
 using LINQ.OutputFromQueries;
 using LINQ.PartialResults;
@@ -52,6 +53,8 @@ var linqResult2 = movies
 
 //new JoinCollectionsFromResults().Run();
 
-new JoiningData().Run();
+//new JoiningData().Run();
+
+new EnumerableExample().Run();
 
 Console.ReadKey();
