@@ -9,7 +9,9 @@ namespace LINQ.CombiningResults
 			//InnerJoinMultiField_Q();
 			//InnerJoinMultiField_F();
 			//GroupJoin_Q();
-			GroupJoin_F();
+			//GroupJoin_F();
+			//LeftOuterJoin_Q();
+			LeftOuterJoin_F();
 		}
 
 		/// <summary>
@@ -129,6 +131,52 @@ namespace LINQ.CombiningResults
 			foreach (var movieWithCast in allCast)
 			{
 				Console.WriteLine($"{movieWithCast.Movie} ({movieWithCast.Actors.Count()})");
+			}
+		}
+
+		/// <summary>
+		/// Left outer join data, query syntax
+		/// </summary>
+		void LeftOuterJoin_Q()
+		{
+			var allMovies = Repository.GetAllMovies();
+			var castMembers = Repository.GetSomeCastMembers();
+
+			var allCast = from movie in allMovies
+						  join castMember in castMembers
+						  on movie.Name equals castMember.Movie
+						  into cast
+						  from actor in cast.DefaultIfEmpty()
+						  select (Movie: movie.Name, Actor: actor);
+
+			foreach (var movieWithCast in allCast)
+			{
+				Console.WriteLine($"{movieWithCast.Movie} ({movieWithCast.Actor?.Actor})");
+			}
+		}
+
+		/// <summary>
+		/// Left outer join data, fluent syntax
+		/// </summary>
+		void LeftOuterJoin_F()
+		{
+			var allMovies = Repository.GetAllMovies();
+			var castMembers = Repository.GetSomeCastMembers();
+
+			var allCast = allMovies.GroupJoin(
+							 castMembers,
+							 movie => movie.Name,
+							 castMember => castMember.Movie,
+							 (movie, cast) => (Movie: movie.Name, Actors: cast)
+						  ).SelectMany(
+								movieWithActors => movieWithActors.Actors.DefaultIfEmpty(),
+								(movieWithActors, actor) =>
+								(Movie: movieWithActors.Movie, Actor: actor)
+							);
+
+			foreach (var movieWithCast in allCast)
+			{
+				Console.WriteLine($"{movieWithCast.Movie} ({movieWithCast.Actor?.Actor})");
 			}
 		}
 	}
