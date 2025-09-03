@@ -50,6 +50,8 @@ var linqResult2 = movies
 
 //new SetOperations().Run();
 
-new JoinCollectionsFromResults().Run();
+//new JoinCollectionsFromResults().Run();
+
+new JoiningData().Run();
 
 Console.ReadKey();
