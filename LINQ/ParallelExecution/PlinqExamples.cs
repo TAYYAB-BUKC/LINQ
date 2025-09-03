@@ -7,7 +7,8 @@ namespace LINQ.ParallelExecution
 		public override void Run()
 		{
 			//ASlowQueryAppeared();
-			RunInParallel();
+			//RunInParallel();
+			RunInParallelButPreserveOrdering();
 		}
 
 		void ASlowQueryAppeared()
@@ -39,6 +40,26 @@ namespace LINQ.ParallelExecution
 
 			var query = allMovies
 						.AsParallel()
+						.Where(movie => SlowCondition(movie.Phase < 5));
+
+			PrintAll(query);
+
+			Console.WriteLine($"Execution time: {stopWatch.ElapsedMilliseconds} ms");
+		}
+
+		/// <summary>
+		/// If we need to keep the order of the source intact
+		/// </summary>
+		void RunInParallelButPreserveOrdering()
+		{
+			var stopWatch = new Stopwatch();
+			stopWatch.Start();
+
+			var allMovies = Repository.GetAllMovies();
+
+			var query = allMovies
+						.AsParallel()
+						.AsOrdered()
 						.Where(movie => SlowCondition(movie.Phase < 5));
 
 			PrintAll(query);
