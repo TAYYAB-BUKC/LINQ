@@ -5,6 +5,7 @@ using LINQ.FilteringAndOrdering;
 using LINQ.HowLINQWorks;
 using LINQ.Introduction;
 using LINQ.OutputFromQueries;
+using LINQ.ParallelExecution;
 using LINQ.PartialResults;
 
 // Working with LINQ Query Syntax
@@ -57,6 +58,8 @@ var linqResult2 = movies
 
 //new EnumerableExample().Run();
 
-new QueryableExample().Run();
+//new QueryableExample().Run();
+
+new PlinqExamples().Run();
 
 Console.ReadKey();
