@@ -55,6 +55,8 @@ var linqResult2 = movies
 
 //new JoiningData().Run();
 
-new EnumerableExample().Run();
+//new EnumerableExample().Run();
+
+new QueryableExample().Run();
 
 Console.ReadKey();
