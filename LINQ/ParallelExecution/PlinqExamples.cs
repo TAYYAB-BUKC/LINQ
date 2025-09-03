@@ -8,7 +8,9 @@ namespace LINQ.ParallelExecution
 		{
 			//ASlowQueryAppeared();
 			//RunInParallel();
-			RunInParallelButPreserveOrdering();
+			//RunInParallelButPreserveOrdering();
+			//LimitParallelization();
+			UseForAll();
 		}
 
 		void ASlowQueryAppeared()
@@ -63,6 +65,47 @@ namespace LINQ.ParallelExecution
 						.Where(movie => SlowCondition(movie.Phase < 5));
 
 			PrintAll(query);
+
+			Console.WriteLine($"Execution time: {stopWatch.ElapsedMilliseconds} ms");
+		}
+
+		/// <summary>
+		/// Sometimes we want to limit the number of threads.
+		/// </summary>
+		void LimitParallelization()
+		{
+			var stopWatch = new Stopwatch();
+			stopWatch.Start();
+
+			var allMovies = Repository.GetAllMovies();
+
+			var query = allMovies
+						.AsParallel()
+						.AsOrdered()
+						.WithDegreeOfParallelism(10) // Number of concurrent tasks
+						.Where(movie => SlowCondition(movie.Phase < 5));
+
+			PrintAll(query);
+
+			Console.WriteLine($"Execution time: {stopWatch.ElapsedMilliseconds} ms");
+		}
+		
+		/// <summary>
+		/// Instead of iterating, the pipeline can remain parallel.
+		/// </summary>
+		void UseForAll()
+		{
+			var stopWatch = new Stopwatch();
+			stopWatch.Start();
+
+			var allMovies = Repository.GetAllMovies();
+
+			allMovies
+				.AsParallel()
+				//.AsOrdered()
+				.WithDegreeOfParallelism(10)
+				.Where(movie => SlowCondition(movie.Phase < 5))
+				.ForAll(movie => Console.WriteLine(movie));
 
 			Console.WriteLine($"Execution time: {stopWatch.ElapsedMilliseconds} ms");
 		}
