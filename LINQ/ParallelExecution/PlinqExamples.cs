@@ -10,7 +10,8 @@ namespace LINQ.ParallelExecution
 			//RunInParallel();
 			//RunInParallelButPreserveOrdering();
 			//LimitParallelization();
-			UseForAll();
+			//UseForAll();
+			MergingThreadResultsUsingMergeOptions();
 		}
 
 		void ASlowQueryAppeared()
@@ -106,6 +107,27 @@ namespace LINQ.ParallelExecution
 				.WithDegreeOfParallelism(10)
 				.Where(movie => SlowCondition(movie.Phase < 5))
 				.ForAll(movie => Console.WriteLine(movie));
+
+			Console.WriteLine($"Execution time: {stopWatch.ElapsedMilliseconds} ms");
+		}
+
+		/// <summary>
+		/// MergeOptions control how results are returned.
+		/// </summary>
+		void MergingThreadResultsUsingMergeOptions()
+		{
+			var stopWatch = new Stopwatch();
+			stopWatch.Start();
+
+			var allMovies = Repository.GetAllMovies();
+
+			var query = allMovies
+						.AsParallel()
+						.WithDegreeOfParallelism(10)
+						.WithMergeOptions(ParallelMergeOptions.NotBuffered)
+						.Where(movie => SlowCondition(movie.Phase < 5));
+
+			PrintAll(query);
 
 			Console.WriteLine($"Execution time: {stopWatch.ElapsedMilliseconds} ms");
 		}
